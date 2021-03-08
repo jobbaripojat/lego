@@ -1,4 +1,5 @@
 package app;
+
 import lejos.hardware.Button; 
 import lejos.hardware.Sound; 
 import lejos.hardware.motor.*; 
@@ -20,34 +21,34 @@ public class HelloLego
     	// if(!file.exists())
     	// System.out.println("File does not exist!");
     	
-        System.out.println("Drive Forward\nand Stop\n"); 
         System.out.println("Press any key to start"); 
  
         Button.LEDPattern(4);     // flash green led and 
-        Sound.beepSequenceUp();   // make sound when ready. 
- 
  
         // create two motor objects to control the motors. 
-        UnregulatedMotor motorA = new UnregulatedMotor(MotorPort.A); 
-        UnregulatedMotor motorB = new UnregulatedMotor(MotorPort.B); 
-        ColorSensor color = new ColorSensor(SensorPort.S3);
+        UnregulatedMotor oikea = new UnregulatedMotor(MotorPort.A); 
+        UnregulatedMotor vasen = new UnregulatedMotor(MotorPort.B); 
+        // ColorSensor color = new ColorSensor(SensorPort.S3);
         
  
         // set motors to 50% power. 
-        // motorA.setPower(75); 
-        // motorB.setPower(75); 
+        // oikea.setPower(75); 
+        // vasen.setPower(75); 
 
-        color.setColorIdMode();
-        color.setFloodLight(Color.WHITE);
+        // color.setColorIdMode();
+        // color.setFloodLight(Color.WHITE);
         
-        String rgb = "Black";
+        // String rgb = "Black";
         
         Button.waitForAnyPress(); 
-        
+        oikea.setPower(100);
+		vasen.setPower(-100);
+		Delay.msDelay(400);
+        /*
         while (rgb == "Black") {
         	while (rgb == "Black") {
-        		motorA.setPower(30);
-        		motorB.setPower(30);
+        		oikea.setPower(30);
+        		vasen.setPower(30);
         		rgb = ColorSensor.colorName(color.getColorID());
         		Delay.msDelay(100); 
         	}
@@ -56,13 +57,13 @@ public class HelloLego
         	while (rgb != "Black") {
         		long currentTime = System.currentTimeMillis();
         		elapsed = (int) currentTime - (int) startTime;
-        		motorA.setPower(30);
-        		motorB.setPower(0);
+        		oikea.setPower(30);
+        		vasen.setPower(0);
         		System.out.println("Moottori A");
         		rgb = ColorSensor.colorName(color.getColorID());
         		if (elapsed >= 2000) {
-        			motorA.setPower(-30);
-        			motorB.setPower(0);
+        			oikea.setPower(-30);
+        			vasen.setPower(0);
         			Delay.msDelay(elapsed + 200);
         			break;
         		}
@@ -78,26 +79,26 @@ public class HelloLego
         	}
         	while(rgb != "Black") {
         		rgb = ColorSensor.colorName(color.getColorID());
-        		motorA.setPower(0);
-        		motorB.setPower(50);
+        		oikea.setPower(0);
+        		vasen.setPower(50);
         		System.out.println("Moottori B");
         	}
         }
-        
+        */
 //        while (rgb == "Black")
 //        {
 //        	System.out.println("Loopin alku");
 //        	rgb = ColorSensor.colorName(color.getColorID());
 //        	if (rgb != "Black") {
 //        		while (rgb != "Black") {
-//        			motorA.setPower(30);
-//        			motorB.setPower(0);
+//        			oikea.setPower(30);
+//        			vasen.setPower(0);
 //            		System.out.println("Moottori A");
 //        			Delay.msDelay(2000);
 //                	rgb = ColorSensor.colorName(color.getColorID());
 //                	while (rgb != "Black") {
-//                		motorA.setPower(0);
-//                		motorB.setPower(30);
+//                		oikea.setPower(0);
+//                		vasen.setPower(30);
 //                		System.out.println("Moottori B");
 //                		Delay.msDelay(4000);
 //                		rgb = ColorSensor.colorName(color.getColorID());
@@ -112,37 +113,63 @@ public class HelloLego
 //        		}
 //        	}
 //        	else {
-//        		motorA.setPower(20);
-//        		motorB.setPower(20);
+//        		oikea.setPower(20);
+//        		vasen.setPower(20);
 //            	Delay.msDelay(200); 
 //        	}
 //        }
         // wait 2 seconds. 
         // Delay.msDelay(1500); 
  
-        // motorA.setPower(60);
-        // motorB.setPower(0);
+        // oikea.setPower(60);
+        // vasen.setPower(0);
         
         // wait 2 seconds. 
         // Delay.msDelay(800); 
         
-        // motorA.setPower(20);
-        // motorB.setPower(20);
+        // oikea.setPower(20);
+        // vasen.setPower(20);
 
         // wait 2 seconds. 
         // Delay.msDelay(2000); 
         
         // stop motors with brakes on.  
-        motorA.stop(); 
-        motorB.stop(); 
+        oikea.stop(); 
+        vasen.stop(); 
         
         // Sound.playSample(file, 100);
  
         // free up motor resources.  
-        motorA.close();  
-        motorB.close(); 
-  
-        Sound.beepSequence(); // we are done. 
+        oikea.close();  
+        vasen.close(); 
+        Button.waitForAnyPress();
+        Button.waitForAnyPress();
+        Button.waitForAnyPress();
         Button.waitForAnyPress();
     } 
 } 
+
+
+
+    			/*
+    			if (rotatedTime == turnTime) {turnCheck = true;}
+    			else if (rotatedTime == -turnTime) {turnCheck = false;}
+    			
+    			if (turnCheck && previousTurn) {
+    				Movement.TurnLeft(5);
+                	rotatedTime -= 5;
+    			} else {
+    				Movement.TurnRight(5);
+                	rotatedTime += 5;
+    			} 
+        	    if (ColorDetection.rgb == "Black") {
+        	    	Movement.Stop();
+        	    	if (rotatedTime > 0) {
+            	    	previousTurn = true;
+        	    	}
+        	    	else {
+        	    		previousTurn = false;
+        	    	}
+        	    	rotatedTime = 0;
+        	    }
+        	    */
