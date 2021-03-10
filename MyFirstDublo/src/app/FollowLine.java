@@ -10,27 +10,42 @@ public class FollowLine
     {
         
     	int rotatedTime = 0;
-    	int speedMulti = Movement.getSpeedMulti();
-    	int turnTime = 60 * speedMulti;
+    	int turnTime = 65;
     	int objectsPassed = 0;
     	boolean tunnistettu = false;
-    	// boolean previousTurn = true; // true == left, false == right
+    	boolean previousTurn = true; // true == left, false == right
+    	boolean nextTurn = false; // true == left, false == right
+    	
     	Stopwatch timer = new Stopwatch();
     	
     	Thread color = new ColorDetection();
     	Thread ultrasonic = new ObjectDetection();
+    	Thread sound = new SoundPlay();
     	
     	color.start();
     	ultrasonic.start();
+    	sound.start();
     	
         Button.waitForAnyPress(); 
-        Delay.msDelay(5000);
+        System.out.println(ObjectDetection.range);
+        Delay.msDelay(2000);
+        SoundPlay.playStart = true;
+        Delay.msDelay(3000);
         timer.reset();
     	
     	while (ColorDetection.rgb == "Black") {
 			rotatedTime = 0;
+			ObjectDetection.detected = false;
+			// ObjectDetection.toggledObject = true;
+			
     		while (ColorDetection.rgb == "Black") {
-    			Movement.Forwards(5);
+    			if (previousTurn) {
+    				Movement.TiltLeft(1);
+    				nextTurn = false;
+    			} else {
+    				Movement.TiltRight(1);
+    				nextTurn = true;
+    			}
     			
     			if (ObjectDetection.detected) { 
     				tunnistettu = true;
@@ -39,59 +54,56 @@ public class FollowLine
     		}
     		
     		if (tunnistettu) {
+				Movement.Stop();
     			objectsPassed++;
     			if (objectsPassed == 2) {
     				Movement.CloseMotors();
+    				SoundPlay.playEnd = true;
     				System.out.println(timer.elapsed());
     			}
-    			Movement.Stop();
-    			Movement.TurnRight(200 * speedMulti);
-    			Movement.Forwards(300 * speedMulti);
-    			Movement.TurnLeft(200 * speedMulti);
-    			Movement.Forwards(800 * speedMulti);
-    			Movement.TurnLeft(200 * speedMulti);
+    			Movement.TurnRight(250);
+    			Movement.Forwards(900);
+    			Movement.TurnLeft(250);
+    			Movement.Forwards(1500);
+    			Movement.TurnLeft(200);
     			while(ColorDetection.rgb != "Black") {
-    				Movement.Forwards(10);
+    				Movement.Forwards(1);
     			}
-    			Movement.TurnRight(80 * speedMulti);
+    			Movement.TurnRight(250);
     			tunnistettu = false;
     		}
+
     		while (ColorDetection.rgb != "Black") {
-        		Movement.TurnRight(10);
-        		/*
-    			if (previousTurn) {
-        			Movement.TurnRight(10);
+    			if (nextTurn) {
+    				Movement.TurnLeft(1);
+    				previousTurn = true;
     			} else {
-    				Movement.TurnLeft(10);
+    				Movement.TurnRight(1);
+    				previousTurn = false;
     			}
-    			*/
-        		rotatedTime += 10;
+        		rotatedTime += 1;
+        		if (ColorDetection.rgb == "Black") {
+        			if (previousTurn) {
+        				Movement.TurnLeft(5);
+        			} else {
+            			Movement.TurnRight(5);
+        			}
+        		}
         		if (rotatedTime >= turnTime) {
         			Movement.Stop();
         			break;
         		}
     		}
     		
-    		// if (ColorDetection.rgb == "Black") {previousTurn = !previousTurn;}
     		while (ColorDetection.rgb != "Black") {
-				Movement.TurnLeft(10);
-				/*
-    			if (previousTurn) {
-    				Movement.TurnLeft(10);
-            		previousTurn = false;
-    			} else {
-            		Movement.TurnRight(10);
+    			if (nextTurn) {
+    				Movement.TurnRight(1);
     				previousTurn = true;
+    			} else {
+    				Movement.TurnLeft(1);
+    				previousTurn = false;
     			}
-    			*/
-    		}
+			}
     	}
-    	Movement.Stop();
-    	Movement.CloseMotors();
-    	ColorDetection.ToggleColorChecking();
-
-        Button.LEDPattern(3);
-    	Button.waitForAnyPress();
-    	Button.waitForAnyPress();
     } 
 } 

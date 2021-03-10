@@ -8,37 +8,51 @@ public class Movement {
 	
 	private static int speed = 80;
 	
-	private static int speedMulti = 100 / speed;
-	
 	private static UnregulatedMotor right = new UnregulatedMotor(MotorPort.A);
 	private static UnregulatedMotor left = new UnregulatedMotor(MotorPort.B);
 	
-	public static int getSpeedMulti() {
-		return speedMulti;
+	public static int getSpeed() {
+		return speed;
+	}
+	
+	public static void setSpeed(int x) {
+		speed = x;
 	}
     
 	public static void TurnLeft(int duration) {
 		right.setPower(speed);
 		left.setPower(-speed);
-		Delay.msDelay((long) duration * speedMulti);
+		Delay.msDelay((long) duration);
 	}
 	
 	public static void TurnRight(int duration) {
 		right.setPower(-speed);
 		left.setPower(speed);
-		Delay.msDelay((long) duration * speedMulti);
+		Delay.msDelay((long) duration);
+	}
+	
+	public static void TiltLeft(int duration) {
+		right.setPower(speed);
+		left.setPower((int) (speed * 0.9));
+		Delay.msDelay((long) duration);
+	}
+
+	public static void TiltRight(int duration) {
+		right.setPower((int) (speed * 0.9));
+		left.setPower(speed);
+		Delay.msDelay((long) duration);
 	}
 	
 	public static void Forwards(int duration) {
 		right.setPower(speed);
 		left.setPower(speed);
-		Delay.msDelay((long) duration * speedMulti);
+		Delay.msDelay((long) duration);
 	}
 
 	public static void Backwards(int duration) {
 		right.setPower(-speed);
 		left.setPower(-speed);
-		Delay.msDelay((long) duration * speedMulti);
+		Delay.msDelay((long) duration);
 	}
 	
 	public static void Stop() {

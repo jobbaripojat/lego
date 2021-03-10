@@ -1,6 +1,7 @@
 package app;
 
 import app.library.UltraSonicSensor;
+import lejos.hardware.Button;
 import lejos.hardware.port.SensorPort;
 
 public class ObjectDetection extends Thread {
@@ -10,23 +11,16 @@ public class ObjectDetection extends Thread {
 	static UltraSonicSensor ussr = new UltraSonicSensor(SensorPort.S1);
 	
 	public static boolean detected = false;
-	public static boolean toggledObject = true;
+	// public static boolean toggledObject = false;
 	
 	public void run() {
-		while (toggledObject) {
+        Button.waitForAnyPress(); 
+		while (true) {
 			range = ussr.getRange();
 			detected = false;
-			if (range <= .15) {
-				detected = true;
+			if (range < 0.2) {
+					detected = true;
 			}
 		}
 	}
-	
-    public static void ToggleObjectDetection() {
-    	if (toggledObject) {
-    		toggledObject = false;
-    	} else {
-    		toggledObject = true;
-    	}
-    }
 }
