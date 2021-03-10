@@ -6,7 +6,7 @@ import lejos.utility.Delay;
 
 public class Movement {
 	
-	private static int speed = 100;
+	private static int speed = 80;
 	
 	private static int speedMulti = 100 / speed;
 	
