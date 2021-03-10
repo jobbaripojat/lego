@@ -5,6 +5,8 @@ import lejos.hardware.Button;
 import lejos.hardware.port.SensorPort;
 import lejos.robotics.Color;
 
+//Luokka koostuu metoideista, joiden avulla värisensori toimii ja palautta dataa. Dokumentaatiossa on tarkemmin tietoa metodeista.
+
 class ColorDetection extends Thread {
 	
 	public static String rgb = "";
