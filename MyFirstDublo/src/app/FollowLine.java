@@ -3,6 +3,8 @@ package app;
 import lejos.hardware.Button;
 import lejos.utility.Delay;
 import lejos.utility.Stopwatch;
+
+//Tämä on main, jonka sisällä itse ohjelma runnaa.
  
 public class FollowLine 
 { 
