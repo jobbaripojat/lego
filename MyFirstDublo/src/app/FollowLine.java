@@ -12,7 +12,7 @@ public class FollowLine
     {
         
     	int rotatedTime = 0;
-    	int turnTime = 65;
+    	int turnTime = 75;
     	int objectsPassed = 0;
     	boolean tunnistettu = false;
     	boolean previousTurn = true; // true == left, false == right
@@ -35,6 +35,8 @@ public class FollowLine
         Delay.msDelay(3000);
         timer.reset();
     	
+        Movement.Forwards(200);
+        
     	while (ColorDetection.rgb == "Black") {
 			rotatedTime = 0;
 			ObjectDetection.detected = false;
@@ -57,21 +59,31 @@ public class FollowLine
     		
     		if (tunnistettu) {
 				Movement.Stop();
+				Movement.Backwards(200);
     			objectsPassed++;
     			if (objectsPassed == 2) {
     				Movement.CloseMotors();
     				SoundPlay.playEnd = true;
     				System.out.println(timer.elapsed());
     			}
-    			Movement.TurnRight(250);
-    			Movement.Forwards(900);
-    			Movement.TurnLeft(250);
-    			Movement.Forwards(1500);
-    			Movement.TurnLeft(200);
+    			for (int i = 1; i <= 1;) {
+        			Movement.TurnRight(500);
+        			Movement.Forwards(900);
+        			if (ColorDetection.rgb == "Black") { break; }
+        			Movement.TurnLeft(450);
+        			if (ColorDetection.rgb == "Black") { break; }
+        			Movement.Forwards(2200);
+        			if (ColorDetection.rgb == "Black") { break; }
+        			Movement.TurnLeft(500);
+        			break;
+    	        }
     			while(ColorDetection.rgb != "Black") {
     				Movement.Forwards(1);
     			}
-    			Movement.TurnRight(250);
+    			while(ColorDetection.rgb == "Black") {
+    				Movement.Forwards(1);
+    			}
+    			Movement.TurnRight(600);
     			tunnistettu = false;
     		}
 
@@ -86,9 +98,9 @@ public class FollowLine
         		rotatedTime += 1;
         		if (ColorDetection.rgb == "Black") {
         			if (previousTurn) {
-        				Movement.TurnLeft(5);
+        				Movement.TurnLeft(20);
         			} else {
-            			Movement.TurnRight(5);
+            			Movement.TurnRight(20);
         			}
         		}
         		if (rotatedTime >= turnTime) {

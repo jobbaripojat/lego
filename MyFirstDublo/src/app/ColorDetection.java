@@ -12,7 +12,7 @@ class ColorDetection extends Thread {
 	public static String rgb = "";
 	private static boolean RunningColor = true;
 	
-	private static ColorSensor color = new ColorSensor(SensorPort.S3);
+	private static ColorSensor color = new ColorSensor(SensorPort.S4);
     
     public static void InitializeColor() {
     	color.setColorIdMode();

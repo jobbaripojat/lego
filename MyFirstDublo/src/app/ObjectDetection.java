@@ -18,8 +18,8 @@ public class ObjectDetection extends Thread {
 		while (true) {
 			range = ussr.getRange();
 			detected = false;
-			if (range < 0.2) {
-					detected = true;
+			if (range < 0.2) {	
+				detected = true;
 			}
 		}
 	}
