@@ -5,7 +5,11 @@ import lejos.hardware.Button;
 import lejos.hardware.port.SensorPort;
 
 public class ObjectDetection extends Thread {
-
+	
+	/**
+	* Täällä on vain run, jonka sisällä haetaan etäisyys objektiin joka saattaa olla edessä.
+	* Detected muuttuu riippuen siittä, kuinka lähellä esine on.
+	*/
 	public static float range;
 	
 	static UltraSonicSensor ussr = new UltraSonicSensor(SensorPort.S1);
