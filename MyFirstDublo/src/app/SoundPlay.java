@@ -5,6 +5,10 @@ import java.io.File;
 import lejos.hardware.Sound;
 
 public class SoundPlay extends Thread {
+	/**
+	* Täällä hallitaan robotin soittamaa musiikkia.
+	* Tarkemmat tiedot metodeista löytyvät dokumentaatiosta.
+	*/
 	
 	File startSound = new File("start.wav");
 	File endSound = new File("robontti.wav");
