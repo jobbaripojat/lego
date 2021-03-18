@@ -11,7 +11,7 @@ public class ObjectDetection extends Thread {
 	static UltraSonicSensor ussr = new UltraSonicSensor(SensorPort.S1);
 	
 	public static boolean detected = false;
-	// public static boolean toggledObject = false;
+	
 	
 	public void run() {
         Button.waitForAnyPress(); 
