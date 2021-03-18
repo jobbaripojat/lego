@@ -5,7 +5,7 @@ import lejos.hardware.port.MotorPort;
 import lejos.utility.Delay;
 
 /**
-Täällä halitaan robotin liikettä ja sen kääntymistä eri suuntiin. Metodeista voi jälleen lukea enemmän dokumentaatiosta.
+Täällä halitaan robotin liikettä ja sen kääntymistä eri suuntiin. Metodeista voi lukea enemmän dokumentaatiosta.
 */
 public class Movement {
 	
