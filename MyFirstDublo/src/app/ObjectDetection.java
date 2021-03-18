@@ -8,7 +8,7 @@ public class ObjectDetection extends Thread {
 	
 	/**
 	* Täällä on vain run, jonka sisällä haetaan etäisyys objektiin joka saattaa olla edessä.
-	* Detected muuttuu riippuen siittä, kuinka lähellä esine on.
+	* Detected muuttuu riippuen siitä, kuinka lähellä esine on.
 	*/
 	public static float range;
 	
